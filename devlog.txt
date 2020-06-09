@@ -20,3 +20,6 @@ Renamed app.py to __init__.py
 
 matthewC -- 2020-06-09 05:32
 Created SQL database python module
+
+matthewC -- 2020-06-09 06:15
+Added more helper functions to format database data
