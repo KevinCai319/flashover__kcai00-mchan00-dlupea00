@@ -17,3 +17,6 @@ Altered script tag to type module to allow importing and exporting between files
 matthewC -- 2020-06-09 01:57
 Fixed python imports
 Renamed app.py to __init__.py
+
+matthewC -- 2020-06-09 05:32
+Created SQL database python module
