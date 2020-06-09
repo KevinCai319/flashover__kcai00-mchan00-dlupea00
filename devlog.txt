@@ -2,3 +2,10 @@ Tanks by Team flashover -- Kevin Cai, Matthew Chan & David Lupea
 SoftDev1 pd9
 P #05 — Fin
 2020-06-01
+
+kevinC -- 2020-06-01 ??:??
+Team flashover formed, chose Kevin Cai as project manager. Initialized repo, linked submodule.
+
+kevinC -- 2020-06-09 11:09
+- Implemented game scene/handler system(Ability to switch between main menu/gameplay/results screen/etc..)
+- add some music, fix file structure.
