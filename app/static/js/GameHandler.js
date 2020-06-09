@@ -6,9 +6,9 @@ const status = {
     GOOD: "good",
 };
 export default class GameHandler {
-    DEFAULT_SCENE = 0;
-    constructor(draw) {
-      this.draw = draw;
+    DEFAULT_SCENE = 2;
+    constructor(ctx) {
+      this.ctx = ctx;
       this.cScene = new Scene();
       this.state = status.GOOD;
       this.listen = 0;
@@ -46,7 +46,7 @@ export default class GameHandler {
       }
     }
     update() {
-      this.listen = this.cScene.update();
+      this.listen = this.cScene.update(ctx);
       //If scene returns 0, means normal operation This also means that people should never reach demo scene.
       if (this.listen) {
         this.handleSignal(this.listen);
