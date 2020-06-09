@@ -9,3 +9,7 @@ Team flashover formed, chose Kevin Cai as project manager. Initialized repo, lin
 kevinC -- 2020-06-09 11:09
 - Implemented game scene/handler system(Ability to switch between main menu/gameplay/results screen/etc..)
 - add some music, fix file structure.
+
+matthewC -- 2020-06-09 12:40
+Modularized Javascript into separate files for different classes
+Altered script tag to type module to allow importing and exporting between files
