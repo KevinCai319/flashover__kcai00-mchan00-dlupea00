@@ -84,7 +84,7 @@ def db_add_map(id, data, height=DEFAULT_HEIGHT, width=DEFAULT_WIDTH, db=None):
 def data_convert(height, width, data):
     map_array = list()
     for i in range(height):
-        row = data[(i*width):(i*(width+1)+1)]
+        row = data[(i*width):(i*(width+1))]
         row = [int(i) for i in list(row)]
 
         map_array.append(row)
