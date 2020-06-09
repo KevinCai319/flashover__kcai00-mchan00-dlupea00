@@ -69,7 +69,7 @@ def db_get_rand_map(db=None):
 
 # Add a map to the database
 @_connects
-def db_add_map(id, height=DEFAULT_HEIGHT, width=DEFAULT_WIDTH, data, db=None):
+def db_add_map(id, data, height=DEFAULT_HEIGHT, width=DEFAULT_WIDTH, db=None):
     db.execute('''
                 INSERT INTO maps 
                 VALUES(?, ?, ?, ?);
