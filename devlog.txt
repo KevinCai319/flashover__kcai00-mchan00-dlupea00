@@ -13,3 +13,7 @@ kevinC -- 2020-06-09 11:09
 matthewC -- 2020-06-09 12:40
 Modularized Javascript into separate files for different classes
 Altered script tag to type module to allow importing and exporting between files
+
+matthewC -- 2020-06-09 01:57
+Fixed python imports
+Renamed app.py to __init__.py
