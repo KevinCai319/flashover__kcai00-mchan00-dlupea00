@@ -1,8 +1,15 @@
+# Team flashover -- Kevin Cai, Matthew Chan & David Lupea
+# SoftDev pd9
+# P#05 -- Fin
+# 2020-06-01
+
 import os
 import random
 
-import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+
+from utl import db
+
 
 app = Flask(__name__)
 
