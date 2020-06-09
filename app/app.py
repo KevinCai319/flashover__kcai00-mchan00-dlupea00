@@ -3,18 +3,21 @@ from functools import wraps
 import urllib.request as urlrequest
 #import urllib.request as request
 import json
-import sqlite3, os, random, copy
-import utl.dbfunctions as dbfunctions
+import sqlite3
+import os
+import random
+import copy
 app = Flask(__name__)
 
-#creates secret key for sessions
+# creates secret key for sessions
 app.secret_key = os.urandom(32)
+
 
 @app.route("/")
 def root():
-    return render_template('game.html');
+    return render_template('game.html')
+
 
 if __name__ == "__main__":
     app.debug = True
     app.run()
-

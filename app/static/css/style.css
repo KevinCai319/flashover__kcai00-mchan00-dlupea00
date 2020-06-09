@@ -1,0 +1,13 @@
+body {
+    font-family: 'Titillium Web', sans-serif;
+    color: white;
+    background-image: url("/static/bg.jpg");
+    background-color: black;
+    text-align:center;
+    margin: auto;
+}
+
+#game {
+    margin: auto;
+    display: block;
+}
