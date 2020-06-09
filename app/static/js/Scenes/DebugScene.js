@@ -1,6 +1,6 @@
 import Scene from '../Scene.js';
 //This Scene is used to test physics and general gameplay before making formal levels.
-class DebugScene extends Scene {
+export default class DebugScene extends Scene {
     constructor() {
       super();
       this.objects = [];
