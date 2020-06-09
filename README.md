@@ -22,7 +22,7 @@ $ git clone git@github.com:Kevin16777216/flashover__kcai00-mchan00-dlupea00.git
 $ python3 -m venv <name of virtual environment>
 $ . ~/<name of virtual environment>/bin/activate  
 (venv)$ cd <name of cloned directory>
-(venv)/<name of cloned directory>$ pip3 install -r doc/requirements.txt
+(venv)/<name of cloned directory>$ pip3 install -r requirements.txt
 ```
 
 #### To run the project: 
