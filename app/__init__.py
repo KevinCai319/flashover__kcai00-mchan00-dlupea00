@@ -12,7 +12,6 @@ from utl import db
 
 
 app = Flask(__name__)
-
 # creates secret key for sessions
 app.secret_key = os.urandom(32)
 
@@ -20,6 +19,10 @@ app.secret_key = os.urandom(32)
 @app.route("/")
 def root():
     return render_template('game.html')
+
+@app.route("/map")
+def get_map():
+    return db.get_map()
 
 
 if __name__ == "__main__":
