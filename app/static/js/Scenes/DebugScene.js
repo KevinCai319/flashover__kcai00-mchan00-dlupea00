@@ -1,9 +1,11 @@
 import Scene from './../Scene.js';
 import GameObject from './../GameObject.js';
 import Tank from './../GameObjects/Tank.js';
+import Input from './../Input.js'
 //This Scene is used to test physics and general gameplay before making formal levels.
 export default class DebugScene extends Scene {
     DEFAULT_COLOR = "#F9E4B7";
+
     objects = [new GameObject()];
     constructor() {
       super();
