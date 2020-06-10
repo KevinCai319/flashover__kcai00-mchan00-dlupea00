@@ -5,7 +5,7 @@ var ctx = canvas.getContext("2d");
 // Start things off
 var handler = new GameHandler(ctx);
 function main() {
-    handler.update();
+    handler.update(ctx);
     requestAnimationFrame(main);
 }
 requestAnimationFrame(main);

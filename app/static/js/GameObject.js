@@ -1,8 +1,6 @@
+import PVector from './Physics/PVector.js'
 export default class GameObject {
-    constructor(x,y) {
-      this.init();
-      this.x = x;
-      this.y = y;
+    constructor() {
     }
     init() {
       return 0;
