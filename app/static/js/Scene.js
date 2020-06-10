@@ -5,7 +5,7 @@ export default class Scene {
     init() {
         return 0;
     }
-    update() {
+    update(ctx) {
         return 0;
     }
     exit() {}
