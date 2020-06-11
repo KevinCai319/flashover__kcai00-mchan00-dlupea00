@@ -4,7 +4,7 @@ export default class Bullet extends GameObject{
         return 0;
     }
     update() {
-    return 0;
+        return 0;
     }
     getScene(){
     return this.scene;

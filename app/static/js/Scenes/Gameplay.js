@@ -24,6 +24,7 @@ export default class Gameplay extends Scene {
           break;
         //remove object
         case 2:
+          this.destroy(obj);
           break;
         //go to results screen
         case 3:
