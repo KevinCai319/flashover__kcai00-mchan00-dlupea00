@@ -1,28 +1,38 @@
 export default class Scene {
     constructor(document) {
-      this.canvas = document;
-      addEvent(document, "keypress", keypress);
-      addEvent(document, "click", click);
-    }
+        this.canvas = document;
+        addEvent(document, "keypress", keypress);
+        addEvent(document, "keyup", keyup);
+        addEvent(document, "mousedown", mousedown);
+        addEvent(document, "mouseup", mouseup);
 
+        this.w = false;
+        this.a = false;
+        this.s = false;
+        this.d = false;
+
+        this.mouse = false;
+    }
     keypress() {
-      if (event.key == 'w') {
-        console.log("w");
-        return 1;
-      } else if (event.key == 'a') {
-        console.log("a");
-        return 2;
-      } else if (event.key == 's') {
-        console.log("s");
-        return 3;
-      } else if (event.key == 'd') {
-        console.log("d");
-        return 4;
-      }
+        if (event.key == 'w') {this.w = true;}
+        else if (event.key == 'a') {this.a = true;}
+        else if (event.key == 's') {this.s = true;}
+        else if (event.key == 'd') {this.d = true;}
     }
+    keyup() {
+        if (event.key == 'w') {this.w = false;}
+        else if (event.key == 'a') {this.a = false;}
+        else if (event.key == 's') {this.s = false;}
+        else if (event.key == 'd') {this.d = false;}
+    }
+    mousedown() {mouse = true;}
+    mouseup() {mouse = false;}
 
-    click() {
-      console.log("click");
-      return 5;
+    keydown(key) {
+        if (key == 'w') {return this.w;}
+        else if (key == 'a') {return this.a;}
+        else if (key == 's') {return this.s;}
+        else if (key == 'd') {return this.d;}
     }
+    clicked() {return this.mouse;}
 }
