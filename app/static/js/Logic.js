@@ -6,7 +6,7 @@ var ctx = canvas.getContext("2d");
 // Start things off
 var handler = new GameHandler(ctx);
 // var input = new Input(document)
-function main() {
+function main(time) {
     handler.update(ctx);
     // input.logKey()
     requestAnimationFrame(main);

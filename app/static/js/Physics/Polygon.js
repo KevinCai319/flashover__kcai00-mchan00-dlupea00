@@ -1,27 +1,55 @@
 import PVector from './PVector.js'
 export default class Polygon{
     DEFAULT_COLOR = "#FF0000";
+    DEFAULT_OUT_COLOR = "#000000";
     vertices = [new PVector(Number,Number)];
     pos = new PVector();
+    rotation = 0.0;
     constructor(pos){
         this.vertices = [];
         this.pos = pos;
+        this.color = this.DEFAULT_COLOR;
+        this.outcolor = this.DEFAULT_OUT_COLOR;
+        this.rotation = 0.0;
     }
     addPoint(x,y){
         this.vertices.push(new PVector(x,y));
     }
+    destroy(){
+        this.vertices = [];
+    }
     rotateBody(deg){
-
+        this.rotation = (deg * Math.PI / 180);
+        // if(this.rotation > 2 * Math.PI){
+        //     this.rotation -= 2* Math.PI;
+        // }
+        this.vertices.forEach(vec => {
+            vec.rotate(this.pos, this.rotation);
+        });
+    }
+    rotateAbsolute(){
+        // this.vertices.forEach(vec => {
+        //     vec.rotate(this.pos, this.rotation);
+        // });
+    }
+    translate(tvec){
+        this.vertices.forEach(vec => {
+            vec.translate(tvec);
+        });
     }
     render(ctx){
-        ctx.fillStyle = this.DEFAULT_COLOR;
-        ctx.beginPath();
-        ctx.moveTo(this.vertices[0].x,this.vertices[0].y);
-        for(let i = 1; i < this.vertices.length; i++){
-            ctx.lineTo(this.vertices[i].x,this.vertices[i].y);
+        if(this.vertices.length > 1){
+            ctx.fillStyle = this.color;
+            ctx.strokeStyle = this.outcolor;
+            ctx.beginPath();
+            ctx.moveTo(this.vertices[0].x,this.vertices[0].y);
+            for(let i = 1; i < this.vertices.length; i++){
+                ctx.lineTo(this.vertices[i].x,this.vertices[i].y);
+            }
+            ctx.lineTo(this.vertices[0].x,this.vertices[0].y);
+            ctx.fill();
+            ctx.stroke();
         }
-        ctx.lineTo(this.vertices[0].x,this.vertices[0].y);
-        ctx.fill();
     }
     static calculateProjection(p1, axis){
         let min = PVector.dot(axis,p1.vertices[0]);
