@@ -5,11 +5,22 @@ export default class PVector {
       this.x = x;
       this.y = y;
     }
-    static sub(vec) {
-      return new PVector(this.x - vec.x, this.y - vec.y);
+    translate(vec){
+      this.x += vec.x;
+      this.y += vec.y;
     }
-    static add(vec) {
-      return new PVector(this.x + vec.x, this.y + vec.y);
+    rotate(vec, rad){
+      let diff = PVector.sub(this, vec);
+      let tmp = diff.x;
+      this.x = (diff.x)*Math.cos(rad)-(diff.y)*Math.sin(rad);
+      this.y = (diff.y)*Math.cos(rad)+(tmp)*Math.sin(rad);
+      this.translate(vec);
+    }
+    static add(vec1 ,vec2) {
+      return new PVector(vec1.x + vec2.x, vec1.y + vec2.y);
+    }
+    static sub(vec1, vec2) {
+      return new PVector(vec1.x - vec2.x, vec1.y - vec2.y);
     }
     static perp(vec) {
       let tmp = vec.x;
