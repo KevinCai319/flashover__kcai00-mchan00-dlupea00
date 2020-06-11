@@ -25,13 +25,13 @@ export default class Tile extends GameObject {
                 this.hitbox.color = "#000000";
                 break;
             case 2:
-                console.log('apples');
-                sc.push(new Tank(sc,this.pos.x,this.pos.y));
+                console.log('create tank');
+                sc.push(new Tank(sc,this.pos.x,this.pos.y,2));
                 this.destroy();
                 break;
             case 3:
-                sc.push(new Player(sc,this.pos.x,this.pos.y));
-                sc.log('pears');
+                console.log('create player');
+                sc.push(new Player(sc,this.pos.x,this.pos.y,4));
                 this.destroy();
                 break;
             default:

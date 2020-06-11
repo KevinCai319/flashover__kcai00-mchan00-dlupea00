@@ -9,12 +9,24 @@ export default class PVector {
       this.x += vec.x;
       this.y += vec.y;
     }
+    scale(scale){
+      this.x *= scale;
+      this.y *= scale;
+    }
     rotate(vec, rad){
       let diff = PVector.sub(this, vec);
       let tmp = diff.x;
       this.x = (diff.x)*Math.cos(rad)-(diff.y)*Math.sin(rad);
       this.y = (diff.y)*Math.cos(rad)+(tmp)*Math.sin(rad);
       this.translate(vec);
+    }
+    static getUnitVec(rad){
+      let tmp = new PVector(1,0);
+      tmp.rotate(new PVector(0,0), rad);
+      return tmp;
+    }
+    static copy(vec){
+      return new PVector(vec.x,vec.y);
     }
     static add(vec1 ,vec2) {
       return new PVector(vec1.x + vec2.x, vec1.y + vec2.y);

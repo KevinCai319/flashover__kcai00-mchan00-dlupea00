@@ -11,13 +11,19 @@ export default class Scene {
     this.init();
   }
   init() {
-    return 0;
   }
   update(ctx) {
     //remove old objects that were requested to be removed
-    while (this.tbd.length) {
+    // console.log(this.tbd);
+    while (this.tbd.length != 0) {
+        console.log(this.objects[this.tbd[this.tbd.length-1]]);
       this.objects.splice(this.tbd.pop(), 1);
+    //   console.log(this.tbd.length);
     }
+    //render objects
+    this.objects.forEach((obj) => {
+        obj.render(ctx);
+    });
     //add new objects requested to be added
     while (this.tbc.length) {
       this.objects.push(this.tbc.pop());
@@ -27,14 +33,13 @@ export default class Scene {
     for (let i = this.objects.length - 1; i != -1; i--) {
       let signal = this.objects[i].update();
       if (signal) {
-        this.handleSignal(signal);
+        this.handleSignal(signal,i);
       }
     }
-    //render objects
-    this.objects.forEach((obj) => {
-      obj.render(ctx);
-    });
     return 0;
+  }
+  rpush(obj){
+      this.objects.push(obj);
   }
   push(obj) {
     this.tbc.push(obj);
@@ -45,6 +50,6 @@ export default class Scene {
   log(msg) {
     console.log(msg);
   }
-  handleSignal() {}
+  handleSignal(signal, i) {}
   exit() {}
 }

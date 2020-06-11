@@ -15,24 +15,29 @@ export default class Polygon{
     addPoint(x,y){
         this.vertices.push(new PVector(x,y));
     }
+    addRelativePoint(x,y){
+        this.vertices.push(new PVector(this.pos.x+x,this.pos.y+y));
+    }
     destroy(){
         this.vertices = [];
     }
     rotateBody(deg){
-        this.rotation = (deg * Math.PI / 180);
-        // if(this.rotation > 2 * Math.PI){
-        //     this.rotation -= 2* Math.PI;
-        // }
+        this.rotation += deg;
+        if(this.rotation > 2 * Math.PI){
+            this.rotation -= 2* Math.PI;
+        }else if(this.rotation < 0){
+            this.rotation += 2* Math.PI;
+        }
         this.vertices.forEach(vec => {
-            vec.rotate(this.pos, this.rotation);
+            vec.rotate(this.pos, deg);
         });
     }
-    rotateAbsolute(){
-        // this.vertices.forEach(vec => {
-        //     vec.rotate(this.pos, this.rotation);
-        // });
+    rotateAbsolute(deg){
+        this.rotateBody(-this.rotation);
+        this.rotateBody(deg);
     }
     translate(tvec){
+        this.pos.translate(tvec);
         this.vertices.forEach(vec => {
             vec.translate(tvec);
         });

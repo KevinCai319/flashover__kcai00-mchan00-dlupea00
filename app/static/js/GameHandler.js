@@ -23,11 +23,6 @@ export default class GameHandler {
     }
     loadScene(id) {
       this.cScene = this.getScene(id);
-      this.listen = this.cScene.init();
-      //if initalized sucessfully then this code normally shouldn't trigger
-      if (this.listen) {
-        this.handleSignal(this.listen);
-      }
     }
   
     handleSignal(code) {

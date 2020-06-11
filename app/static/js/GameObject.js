@@ -7,17 +7,17 @@ export default class GameObject {
       this.scene = sc;
       this.obj = [];
     }
-    init() {
-      return 0;
-    }
     update() {
       return 0;
     }
     getScene(){
       return this.scene;
     }
+    setPkt(obj){
+      this.obj.push(obj);
+    }
     getPkt(){
-      
+      return this.obj;
     }
     render(ctx) {}
     exit() {}
