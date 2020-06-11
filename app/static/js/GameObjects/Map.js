@@ -1,5 +1,5 @@
-import Tile from './GameObjects/Tile.js';
-import GameObject from './GameObject.js';
+import Tile from './Tile.js';
+import GameObject from '../GameObject.js';
 
 export default class Map extends GameObject{
     tiles = [[new Tile()]];

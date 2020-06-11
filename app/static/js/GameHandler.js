@@ -1,6 +1,6 @@
 import Scene from './Scene.js';
 import DemoScene from './Scenes/DemoScene.js';
-import DebugScene from './Scenes/DebugScene.js';
+import Gameplay from './Scenes/Gameplay.js';
 const status = {
     ERROR: "error",
     GOOD: "good",
@@ -18,7 +18,7 @@ export default class GameHandler {
         case 0:
           return new DemoScene();
         case 2:
-          return new DebugScene();
+          return new Gameplay();
       }
     }
     loadScene(id) {

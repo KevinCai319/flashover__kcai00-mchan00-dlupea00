@@ -1,7 +1,7 @@
-import Scene from './../Scene.js';
-import Map from './../Map.js'
+import Scene from '../Scene.js';
+import Map from '../GameObjects/Map.js'
 //This Scene is used to test physics and general gameplay before making formal levels.
-export default class DebugScene extends Scene {
+export default class Gameplay extends Scene {
     DEFAULT_COLOR = "#F9E4B7";
     constructor() {
       super();
