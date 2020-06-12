@@ -21,7 +21,7 @@ def _connects(db_func):
     def establish_connection(*args, **kwargs):
         db = sqlite3.connect(_DB_FILE)
         try:
-            return db_func(*args, **kwargs, db = db)
+            return db_func(*args, db = db)
         except sqlite3.Error as error:
             print(error)
             return False
@@ -48,10 +48,10 @@ def init(db=None):
 @_connects
 def db_get_map(id, db=None):
     results = db.execute('''
-                        SELECT * 
-                        FROM maps 
+                        SELECT *
+                        FROM maps
                         WHERE id=?;
-                        ''', 
+                        ''',
                         (id,))
     return results.fetchone()
 
@@ -60,7 +60,7 @@ def db_get_map(id, db=None):
 @_connects
 def db_get_rand_map(db=None):
     results = db.execute('''
-                        SELECT * 
+                        SELECT *
                         FROM maps;
                         ''')
     results = [i for i in results]
@@ -71,7 +71,7 @@ def db_get_rand_map(db=None):
 @_connects
 def db_add_map(id, data, height=DEFAULT_HEIGHT, width=DEFAULT_WIDTH, db=None):
     db.execute('''
-                INSERT INTO maps 
+                INSERT INTO maps
                 VALUES(?, ?, ?, ?);
                 ''',
                 (None, height, width, data))
@@ -97,7 +97,7 @@ def get_map(id=None):
         db_result = db_get_map(id)
     else:
         db_result = db_get_rand_map()
-    
+
     map_dict = {
         'name': 'level' + str(db_result[0]),
         'height': db_result[1],
