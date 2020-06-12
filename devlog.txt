@@ -34,3 +34,6 @@ Added route for getting map data from database
 
 matthewC -- 2020-06-11 02:04
 Fixed Input class to allow for querying keypresses and mouse clicks
+
+davidL -- 2020-06-12 17:32
+Attempted fix at the FPS problem
