@@ -20,6 +20,7 @@ app.secret_key = os.urandom(32)
 def root():
     return render_template('game.html')
 
+
 @app.route("/map")
 def get_map():
     return db.get_map()

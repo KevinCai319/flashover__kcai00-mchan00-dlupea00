@@ -17,11 +17,13 @@ DEFAULT_WIDTH = 30
 # Connects to the database file
 # Passes the connected object to the wrapped function
 # Returns the wrapped function if no SQLite error, otherwise returns False
+
+
 def _connects(db_func):
     def establish_connection(*args, **kwargs):
         db = sqlite3.connect(_DB_FILE)
         try:
-            return db_func(*args, db = db)
+            return db_func(*args, db=db)
         except sqlite3.Error as error:
             print(error)
             return False
@@ -31,6 +33,8 @@ def _connects(db_func):
 # DATABASE INTERACTION FUNCTIONS
 
 # Initialize the database with the necessary maps table
+
+
 @_connects
 def init(db=None):
     # Create the maps table to store map data
@@ -52,7 +56,7 @@ def db_get_map(id, db=None):
                         FROM maps
                         WHERE id=?;
                         ''',
-                        (id,))
+                         (id,))
     return results.fetchone()
 
 
@@ -74,13 +78,15 @@ def db_add_map(id, data, height=DEFAULT_HEIGHT, width=DEFAULT_WIDTH, db=None):
                 INSERT INTO maps
                 VALUES(?, ?, ?, ?);
                 ''',
-                (None, height, width, data))
+               (None, height, width, data))
     db.commit()
 
 #=============================================================================
 # DATA FORMATTING FUNCTIONS
 
 # Convert string map data into 2d array
+
+
 def data_convert(height, width, data):
     map_array = list()
     for i in range(height):

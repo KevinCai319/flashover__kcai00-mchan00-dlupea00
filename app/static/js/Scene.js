@@ -3,6 +3,7 @@ export default class Scene {
   objects = [new GameObject()];
   //to be destroyed
   tbd = [new GameObject()];
+  //to be created
   tbc = [new GameObject()];
   constructor() {
     this.objects = [];
@@ -14,11 +15,8 @@ export default class Scene {
   }
   update(ctx) {
     //remove old objects that were requested to be removed
-    // console.log(this.tbd);
     while (this.tbd.length != 0) {
-        console.log(this.objects[this.tbd[this.tbd.length-1]]);
       this.objects.splice(this.tbd.pop(), 1);
-    //   console.log(this.tbd.length);
     }
     //render objects
     this.objects.forEach((obj) => {

@@ -1,5 +1,3 @@
-import Scene from "./Scene.js";
-
 export default class GameObject {
     resp = [];
     obj = [];
