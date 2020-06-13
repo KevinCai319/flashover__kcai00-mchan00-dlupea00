@@ -43,6 +43,7 @@ export default class PVector {
       let len = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
       vec.x /= len;
       vec.y /= len;
+      return new PVector(vec.x,vec.y);
     }
     static normal(vec1, vec2) {
       return normalize(perp(vec1.sub(vec2)));

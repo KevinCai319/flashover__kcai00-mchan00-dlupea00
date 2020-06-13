@@ -26,8 +26,9 @@ export default class Bullet extends GameObject{
         this.hitbox.addRelativePoint(-15,-2);
         this.hitbox.addRelativePoint(-5,-2);
         this.movement = PVector.getUnitVec(rotation);
-        this.movement.scale(.5);
+        this.movement.scale(4);
         this.hitbox.rotateBody(rotation);
+        this.pos = new PVector(this.hitbox.vertices[0].x,this.hitbox.vertices[0].y);
         this.state = "active";
     }
     update() {

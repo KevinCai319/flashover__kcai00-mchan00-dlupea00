@@ -21,15 +21,15 @@ export default class Polygon{
     destroy(){
         this.vertices = [];
     }
-    rotateBody(deg){
-        this.rotation += deg;
+    rotateBody(rad){
+        this.rotation += rad;
         if(this.rotation > 2 * Math.PI){
             this.rotation -= 2* Math.PI;
         }else if(this.rotation < 0){
             this.rotation += 2* Math.PI;
         }
         this.vertices.forEach(vec => {
-            vec.rotate(this.pos, deg);
+            vec.rotate(this.pos, rad);
         });
     }
     rotateAbsolute(deg){

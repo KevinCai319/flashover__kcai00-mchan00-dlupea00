@@ -2,11 +2,14 @@ import Polygon from './../Physics/Polygon.js'
 import PVector from './../Physics/PVector.js'
 import GameObject from './../GameObject.js'
 import Bullet from './Bullet.js';
+const TANK_WIDTH = 12;
 export default class Tank extends GameObject {
     hitbox = new Polygon();
+    bumper = new Polygon();
     gun = new Polygon();
     movement = new PVector();
     pos = new PVector();
+    rot = 0.0;
     bullet = [new Bullet()];
     cur = -1;
     constructor(sc,x,y,capacity) {
@@ -16,6 +19,7 @@ export default class Tank extends GameObject {
         this.movement = new PVector(0,0);
         this.bullet = [];
         this.cur = -1;
+        this.rot = 0.0;
         for(let i = 0; i < capacity;i++){
             this.bullet.push(new Bullet(sc));
         }
@@ -23,32 +27,55 @@ export default class Tank extends GameObject {
     }
     init() {
         //setup hitbox
-        this.hitbox = new Polygon(this.pos);
-        this.gun = new Polygon(this.pos);
+        this.hitbox = new Polygon(PVector.copy(this.pos));
+        this.gun = new Polygon(PVector.copy(this.pos));
+        this.bumper = new Polygon(PVector.copy(this.pos));
         this.movement = new PVector(0,0);
-        this.editColor("#FF9999");
+        this.hitbox.color = "#FF9999";
+        this.gun.color = "#FFFFFF";
+        this.bumper.color = "#FF0000";
         //this can be made to whatever polygon.
-        this.hitbox.addRelativePoint(16, 16);
-        this.hitbox.addRelativePoint(16, -16);
-        this.hitbox.addRelativePoint(-16,-16);
-        this.hitbox.addRelativePoint(-16, 16);
-        this.gun.addRelativePoint(30, 2);
-        this.gun.addRelativePoint(30, -2);
+        this.hitbox.addRelativePoint(TANK_WIDTH, TANK_WIDTH);
+        this.hitbox.addRelativePoint(TANK_WIDTH, -TANK_WIDTH);
+        this.hitbox.addRelativePoint(-TANK_WIDTH,-TANK_WIDTH);
+        this.hitbox.addRelativePoint(-TANK_WIDTH, TANK_WIDTH);
+        this.bumper.addRelativePoint(TANK_WIDTH, TANK_WIDTH);
+        this.bumper.addRelativePoint(TANK_WIDTH, -TANK_WIDTH);
+        this.bumper.addRelativePoint(TANK_WIDTH/4,-TANK_WIDTH);
+        this.bumper.addRelativePoint(TANK_WIDTH/4, TANK_WIDTH);
+        this.gun.addRelativePoint(TANK_WIDTH*2, 2);
+        this.gun.addRelativePoint(TANK_WIDTH*2, -2);
         this.gun.addRelativePoint(-5, -2);
         this.gun.addRelativePoint(-5, 2);
         return 0;
     }
-    editColor(color){
-        this.hitbox.color = color;
-        this.gun.color = "FF00FF";
+    editMovement(vec){
+        this.movement = vec;
+    }
+    editRot(rot){
+        this.rot = rot;
+    }
+    applyGunRot(rot){
+        this.gun.rotateAbsolute(rot);
+    }
+    applyMovement(){
+        this.pos.translate(this.movement);
+        this.hitbox.translate(this.movement);
+        this.bumper.translate(this.movement);
+        this.gun.translate(this.movement);
+    }
+    applyRotation(){
+        this.bumper.rotateBody(this.rot);
+        this.hitbox.rotateBody(this.rot);
     }
     update() {
-        this.gun.rotateBody(5* Math.PI/180);
         this.updateAmmo();
-        this.shoot();
+        // if((super.getScene().counter % 60) == 0){
+        //     this.shoot();
+        // }
         this.calculate();
-        this.hitbox.translate(this.movement);
-        this.gun.translate(this.movement);
+        this.applyMovement();
+        this.applyRotation();
         return 0;
     }
     //code for movement and most actions
@@ -76,7 +103,9 @@ export default class Tank extends GameObject {
         });
     }
     render(ctx) {
+        ctx.lineWidth = 1;
         this.hitbox.render(ctx);
+        this.bumper.render(ctx);
         this.gun.render(ctx);
         this.renderAmmo(ctx);
         ctx.beginPath();

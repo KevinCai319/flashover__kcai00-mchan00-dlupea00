@@ -1,38 +1,42 @@
-export default class Scene {
-    constructor(document) {
-        this.canvas = document;
-        addEvent(document, "keypress", keypress);
-        addEvent(document, "keyup", keyup);
-        addEvent(document, "mousedown", mousedown);
-        addEvent(document, "mouseup", mouseup);
-
-        this.w = false;
-        this.a = false;
-        this.s = false;
-        this.d = false;
-
-        this.mouse = false;
+import PVector from './Physics/PVector.js';
+export default class Input{
+    constructor() {
+        document.addEventListener("keypress", this.keypress);
+        document.addEventListener ("keyup", this.keyup);
+        document.addEventListener( "mousedown", this.mousedown);
+        document.addEventListener("mouseup", this.mouseup);
+        document.addEventListener("mousemove", this.mouse);
+    }
+    keydown(key) {
+        return localStorage.getItem(key) === 'true';
     }
     keypress() {
-        if (event.key == 'w') {this.w = true;}
-        else if (event.key == 'a') {this.a = true;}
-        else if (event.key == 's') {this.s = true;}
-        else if (event.key == 'd') {this.d = true;}
+        if (event.key == 'w') {localStorage.setItem('w','true')}
+        else if (event.key == 'a') {localStorage.setItem('a','true')}
+        else if (event.key == 's') {localStorage.setItem('s','true')}
+        else if (event.key == 'd') {localStorage.setItem('d','true')}
     }
     keyup() {
-        if (event.key == 'w') {this.w = false;}
-        else if (event.key == 'a') {this.a = false;}
-        else if (event.key == 's') {this.s = false;}
-        else if (event.key == 'd') {this.d = false;}
+        if (event.key == 'w') {localStorage.setItem('w','false')}
+        else if (event.key == 'a') {localStorage.setItem('a','false')}
+        else if (event.key == 's') {localStorage.setItem('s','false')}
+        else if (event.key == 'd') {localStorage.setItem('d','false')}
     }
-    mousedown() {mouse = true;}
-    mouseup() {mouse = false;}
-
-    keydown(key) {
-        if (key == 'w') {return this.w;}
-        else if (key == 'a') {return this.a;}
-        else if (key == 's') {return this.s;}
-        else if (key == 'd') {return this.d;}
+    mousedown() {localStorage.setItem('mouse','clicked')}
+    mouseup() {localStorage.setItem('mouse','up')}
+    mouse(){
+        let a = document.getElementById('game').getBoundingClientRect();
+        localStorage.setItem('mouseX',event.clientX-a.left-30);
+        localStorage.setItem('mouseY',event.clientY-a.top-30);
     }
-    clicked() {return this.mouse;}
+    getMouse(){
+        return new PVector(parseInt(localStorage.getItem('mouseX')),parseInt(localStorage.getItem('mouseY')));
+    }
+    clicked() {
+        if(localStorage.getItem('mouse') === 'clicked'){
+            localStorage.setItem('mouse','hold');
+            return true;
+        }
+        return false;
+    }
 }
