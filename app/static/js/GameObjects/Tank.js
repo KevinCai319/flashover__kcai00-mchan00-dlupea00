@@ -2,7 +2,7 @@ import Polygon from './../Physics/Polygon.js'
 import PVector from './../Physics/PVector.js'
 import GameObject from './../GameObject.js'
 import Bullet from './Bullet.js';
-const TANK_WIDTH = 12;
+const TANK_WIDTH = 14;
 export default class Tank extends GameObject {
     hitbox = new Polygon();
     bumper = new Polygon();
@@ -35,14 +35,14 @@ export default class Tank extends GameObject {
         this.gun.color = "#FFFFFF";
         this.bumper.color = "#FF0000";
         //this can be made to whatever polygon.
-        this.hitbox.addRelativePoint(TANK_WIDTH, TANK_WIDTH);
-        this.hitbox.addRelativePoint(TANK_WIDTH, -TANK_WIDTH);
-        this.hitbox.addRelativePoint(-TANK_WIDTH,-TANK_WIDTH);
-        this.hitbox.addRelativePoint(-TANK_WIDTH, TANK_WIDTH);
-        this.bumper.addRelativePoint(TANK_WIDTH, TANK_WIDTH);
-        this.bumper.addRelativePoint(TANK_WIDTH, -TANK_WIDTH);
-        this.bumper.addRelativePoint(TANK_WIDTH/4,-TANK_WIDTH);
-        this.bumper.addRelativePoint(TANK_WIDTH/4, TANK_WIDTH);
+        this.hitbox.addRelativePoint(TANK_WIDTH*1.2, TANK_WIDTH);
+        this.hitbox.addRelativePoint(TANK_WIDTH*1.2, -TANK_WIDTH);
+        this.hitbox.addRelativePoint(-TANK_WIDTH*1.2,-TANK_WIDTH);
+        this.hitbox.addRelativePoint(-TANK_WIDTH*1.2, TANK_WIDTH);
+        this.bumper.addRelativePoint(TANK_WIDTH*1.2, TANK_WIDTH);
+        this.bumper.addRelativePoint(TANK_WIDTH*1.2, -TANK_WIDTH);
+        this.bumper.addRelativePoint(TANK_WIDTH*1.2/1.618,-TANK_WIDTH);
+        this.bumper.addRelativePoint(TANK_WIDTH*1.2/1.618, TANK_WIDTH);
         this.gun.addRelativePoint(TANK_WIDTH*2, 2);
         this.gun.addRelativePoint(TANK_WIDTH*2, -2);
         this.gun.addRelativePoint(-5, -2);
