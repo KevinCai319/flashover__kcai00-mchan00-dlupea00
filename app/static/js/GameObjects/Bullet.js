@@ -19,7 +19,7 @@ export default class Bullet extends GameObject{
         let tmp = PVector.getUnitVec(rotation);
         tmp.scale(35);
         this.pos = PVector.add(pos,tmp);
-        this.hitbox = new Polygon(this.pos);
+        this.hitbox = new Polygon(PVector.copy(this.pos));
         this.hitbox.addRelativePoint(0,0);
         this.hitbox.addRelativePoint(-5,2);
         this.hitbox.addRelativePoint(-15,2);

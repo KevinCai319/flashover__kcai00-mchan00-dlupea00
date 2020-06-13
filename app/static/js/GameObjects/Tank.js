@@ -61,6 +61,9 @@ export default class Tank extends GameObject {
         this.gun.rotateAbsolute(rot);
     }
     applyMovement(){
+        if(this.movement.x || this.movement.y){
+            // new Audio('/static/Assets/Audio/Movement/Sample_0012.wav').play();
+        }
         this.pos.translate(this.movement);
         this.hitbox.translate(this.movement);
         this.bumper.translate(this.movement);
@@ -96,6 +99,7 @@ export default class Tank extends GameObject {
     }
     shoot(){
         if(this.cur > -1){
+            new Audio('/static/Assets/Audio/launch.wav').play();
             this.bullet[this.cur].init(PVector.copy(this.pos),this.gun.rotation);
         }
     }
