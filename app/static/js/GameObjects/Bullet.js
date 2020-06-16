@@ -13,6 +13,7 @@ export default class Bullet extends GameObject {
   hitbox = new Polygon();
   tankid = 0;
   bounces = BOUNCES;
+  life = 0;
   constructor(tankid, pos, rotation) {
     super();
     this.addType("SOLID");
@@ -81,12 +82,12 @@ export default class Bullet extends GameObject {
     if(PVector.getScalar(this.movement) > 4){
       this.movement = PVector.getUnitVec(this.movement).scale(4);
     }
-    while(Polygon.isColliding(this.hitbox,element.hitbox) && i < 8){
+    while(Polygon.isColliding(this.hitbox,element.hitbox) && i < 6){
       this.translate();
       i+=1;
     }
     //prevents bullets from being shot in walls
-    if(i == 12){
+    if(i == 6 || this.life < 2){
       this.end();
       return;
     }
@@ -134,6 +135,7 @@ export default class Bullet extends GameObject {
     }else{
       this.collisionCheck();
     }
+    this.life++;
     return super.update();
   }
   render(ctx) {
