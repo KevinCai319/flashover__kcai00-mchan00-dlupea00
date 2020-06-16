@@ -37,13 +37,13 @@ export default class Player extends Tank {
     if (this.Input.keydown("d") && !this.Input.keydown("a")) {
       rot = Math.PI / 180;
     }
-    if (this.Input.keydown("w")) {
+    if (this.Input.keydown("s")) {
       nMovement.translate(PVector.getUnitVec(this.hitbox.rotation));
     }
-    if (this.Input.keydown("s")) {
+    if (this.Input.keydown("w")) {
       nMovement.translate(PVector.getUnitVec(this.hitbox.rotation + Math.PI));
     }
-    nMovement.scale(2);
+    nMovement.scale(3);
     rot *= 3;
     super.editRot(rot);
     super.editMovement(nMovement);

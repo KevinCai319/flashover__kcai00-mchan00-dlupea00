@@ -80,31 +80,34 @@ export default class Tank extends GameObject {
   }
 
   update() {
-    this.calculate();
     this.applyMovement();
     this.applyRotation();
+    this.calculate();
     return super.update();
   }
+
   //code for movement and most actions
   calculate() {
-    let testCollision = super.getResp();
-      super.setPkt(Status.GRAB,"SOLID");
-      testCollision.forEach(element => {
-        if(PVector.getDistance(this.pos,element.pos) < 64){
-          let mtv = Polygon.isColliding(this.hitbox,element.hitbox);
-          if(mtv){
-            if(this.movement.x < 0){
-              mtv.x *= -1;
-            }
-            if(this.movement.y < 0 && mtv.y < 0){
-              mtv.y *= -1;
-            }
-            this.movement = mtv;
-            this.applyMovement();
-          }
+    let mvecs = [];
+    super.setPkt(Status.GRAB,"SOLID");
+    let i = 0;
+    super.getResp().forEach(element => {
+      if(PVector.getDistance(this.pos,element.pos) < 64){
+        let mtv = Polygon.isColliding(this.hitbox,element.hitbox);
+        if(mtv){
+          mvecs.push(element.hitbox);
         }
-      });
-      super.clearResp();
+      }
+    });
+    if(mvecs.length > 0){;
+      this.rot *= -1;
+      this.movement.scale(-1);
+      this.applyMovement();
+      this.applyRotation();
+      this.movement.scale(-1);
+      this.rot *= -1;
+    }
+    super.clearResp();
   }
 
   shoot() {
