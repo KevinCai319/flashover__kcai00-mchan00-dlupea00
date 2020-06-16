@@ -20,6 +20,13 @@ export default class PVector {
     this.y = diff.y * Math.cos(rad) + tmp * Math.sin(rad);
     this.translate(vec);
   }
+  static getDistance(vec1, vec2){
+    let tmp = this.sub(vec1,vec2);
+    return this.getScalar(tmp);
+  }
+  static getScalar(vec){
+    return Math.sqrt(vec.x*vec.x+vec.y*vec.y);
+  }
   static getUnitVec(rad) {
     let tmp = new PVector(1, 0);
     tmp.rotate(new PVector(0, 0), rad);

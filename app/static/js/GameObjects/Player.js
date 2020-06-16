@@ -3,8 +3,9 @@ import Input from "../Input.js";
 import PVector from "../Physics/PVector.js";
 //The tank that the player is controlling.
 export default class Player extends Tank {
-  constructor(sc, x, y, capacity) {
-    super(sc, x, y, capacity);
+  constructor(x, y, capacity) {
+    super(x, y, capacity);
+    super.addType("PLAYER");
     this.Input = new Input();
     this.cursor = new PVector(0, 0);
   }
@@ -46,14 +47,10 @@ export default class Player extends Tank {
     rot *= 3;
     super.editRot(rot);
     super.editMovement(nMovement);
-    super.update();
-    return 0;
+    return super.update();
   }
   render(ctx) {
     super.render(ctx);
-    ctx.beginPath();
-    ctx.arc(this.cursor.x, this.cursor.y, 5, 0, 2 * Math.PI);
-    ctx.stroke();
   }
   exit() {}
 }
