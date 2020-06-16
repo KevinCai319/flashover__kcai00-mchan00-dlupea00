@@ -3,7 +3,7 @@ import PVector from "./../Physics/PVector.js";
 import GameObject from "./../GameObject.js";
 import Bullet from "./Bullet.js";
 import Status from "../Status.js";
-const TANK_SIZE = 14;
+const TANK_SIZE = 12;
 const WH_RATIO = 1.2;
 const TANK_WIDTH = TANK_SIZE * WH_RATIO;
 export default class Tank extends GameObject {
@@ -87,6 +87,24 @@ export default class Tank extends GameObject {
   }
   //code for movement and most actions
   calculate() {
+    let testCollision = super.getResp();
+      super.setPkt(Status.GRAB,"SOLID");
+      testCollision.forEach(element => {
+        if(PVector.getDistance(this.pos,element.pos) < 64){
+          let mtv = Polygon.isColliding(this.hitbox,element.hitbox);
+          if(mtv){
+            if(this.movement.x < 0){
+              mtv.x *= -1;
+            }
+            if(this.movement.y < 0 && mtv.y < 0){
+              mtv.y *= -1;
+            }
+            this.movement = mtv;
+            this.applyMovement();
+          }
+        }
+      });
+      super.clearResp();
   }
 
   shoot() {

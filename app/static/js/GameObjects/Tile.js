@@ -11,7 +11,7 @@ export default class Tile extends GameObject {
     this.pos = new PVector(x, y);
     this.tileID = id;
     this.hitbox = new Polygon(x, y);
-    this.addType("SOLID");
+    this.addType("TILE");
     this.init();
   }
   init() {
@@ -24,6 +24,7 @@ export default class Tile extends GameObject {
     switch (this.tileID) {
       case 1:
         this.hitbox.color = "#000000";
+        this.addType("SOLID");
         break;
       case 2:
         super.setPkt(Status.ADD, new Tank(this.pos.x, this.pos.y, 2));

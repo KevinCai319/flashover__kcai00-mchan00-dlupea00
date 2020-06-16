@@ -9,11 +9,13 @@ export default class Bullet extends GameObject {
   movement = new PVector();
   hitbox = new Polygon();
   tankid = 0;
+  bounces = 1;
   constructor(tankid, pos, rotation) {
     super();
     this.addType("SOLID");
     this.addType("BULLET");
     this.tankid = tankid;
+    this.bounces = 1;
     this.init(pos,rotation);
   }
   init(pos, rotation) {
@@ -22,38 +24,78 @@ export default class Bullet extends GameObject {
     this.pos = PVector.add(pos, tmp);
     this.hitbox = new Polygon(PVector.copy(this.pos));
     this.hitbox.addRelativePoint(0, 0);
-    this.hitbox.addRelativePoint(-5, 2);
-    this.hitbox.addRelativePoint(-15, 2);
-    this.hitbox.addRelativePoint(-15, -2);
-    this.hitbox.addRelativePoint(-5, -2);
+    this.hitbox.addRelativePoint(-4, 1);
+    this.hitbox.addRelativePoint(-15, 1);
+    this.hitbox.addRelativePoint(-15, -1);
+    this.hitbox.addRelativePoint(-4, -1);
     this.movement = PVector.getUnitVec(rotation);
     this.movement.scale(4);
     this.hitbox.rotateBody(rotation);
-    // this.pos.translate(this.movement);
     this.pos = new PVector(
       this.hitbox.vertices[0].x,
       this.hitbox.vertices[0].y
     );
   }
-  update() {
+  translate(){
     this.pos.translate(this.movement);
     this.hitbox.translate(this.movement);
+  }
+  end(){
+    new Audio('/static/Assets/Audio/launch.wav').play();
+    super.setPkt(Status.ADDBULLET,this.tankid);
+    super.setPkt(Status.DELETE);
+  }
+  killTank(id){
+    super.setPkt(Status.DELETE, id);
+  }
+  bounceWall(mtv,element){
+    if(Math.abs(mtv.y) > Math.abs(mtv.x)){
+      this.movement.y *= -1;
+    }else{
+      this.movement.x *= -1;
+    }
+    let angle = 0;
+    if(this.movement.y){
+      angle = Math.atan2(this.movement.y,this.movement.x);
+    }
+    this.hitbox.rotateAbsolute(angle);
+    while(Polygon.isColliding(this.hitbox,element.hitbox)){
+      this.translate();
+    }
+  }
+  update() {
+    this.translate();
     if (
       this.pos.x < 0 ||
       this.pos.x > 960 ||
       this.pos.y < 0 ||
       this.pos.y > 480
     ) {
-      super.setPkt(Status.ADDBULLET,this.tankid);
-      super.setPkt(Status.DELETE);
+      this.end();
     }else{
       let testCollision = super.getResp();
+      //get some solids to test
       super.setPkt(Status.GRAB,"SOLID");
       testCollision.forEach(element => {
-        if(PVector.getDistance(this.pos,element.pos) < 64 && element.type.includes("TANK") && !element.type.includes("PLAYER")){
-          super.setPkt(Status.DELETE, element.id);
-          super.setPkt(Status.ADDBULLET,this.tankid);
-          super.setPkt(Status.DELETE);
+        if(PVector.getDistance(this.pos,element.pos) < 64){
+          let mtv = Polygon.isColliding(this.hitbox,element.hitbox);
+          if(mtv){
+            this.hitbox.color = "#FFFFFF";
+            if(element.type.includes("TILE")){
+              if(this.bounces){
+                new Audio('/static/Assets/Audio/bounce.wav').play();
+                this.bounceWall(mtv,element);
+                this.bounces--;
+              }else{
+                this.end();
+              }
+            }else{
+              if(element.type.includes("TANK")){
+                this.killTank(element.id);
+              }
+              this.end();
+            }
+          }
         }
       });
       super.clearResp();

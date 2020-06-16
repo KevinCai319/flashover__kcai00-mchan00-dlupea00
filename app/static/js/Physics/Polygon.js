@@ -69,17 +69,60 @@ export default class Polygon {
     }
     return new PVector(min, max);
   }
+  static isOverlap(vec1, vec2){
+    return (vec1.x > vec2.y||vec2.x>vec1.y);
+  }
+  static getOverlap(vec1, vec2){
+    if(vec1.y > vec2.x && vec2.x > vec1.x){
+      return Math.abs(vec1.y-vec2.x);
+    }else{
+      return Math.abs(vec2.y-vec1.x);
+    }
+  }
   static isColliding(p1, p2) {
-    let overlap = 0;
+    let overlap = 999999999;
     let mtv = new PVector();
     let n1 = [];
     let n2 = [];
     //calculate normals of edges
-    for (let i = 0; i < p1.vertices.length; i++) {
+    for (let i = 0; i < p1.vertices.length-1; i++) {
       n1.push(PVector.normal(p1.vertices[i], p1.vertices[i + 1]));
     }
-    for (let i = 0; i < p2.vertices.length; i++) {
+    n1.push(PVector.normal(p1.vertices[p1.vertices.length-1], p1.vertices[0]));
+    //projcted axes of p2
+    for (let i = 0; i < p2.vertices.length-1; i++) {
       n2.push(PVector.normal(p2.vertices[i], p2.vertices[i + 1]));
     }
+    n2.push(PVector.normal(p2.vertices[p2.vertices.length-1], p2.vertices[0]));
+    for(let i = 0; i < n1.length; i++){
+      let axis = n1[i];
+      let proj1 = this.calculateProjection(p1, axis);
+      let proj2 = this.calculateProjection(p2, axis);
+      if(this.isOverlap(proj1,proj2)){
+          return false;
+      }else{
+          let tmp = this.getOverlap(proj1,proj2);
+          if(tmp < overlap){
+            overlap = tmp;
+            mtv = axis;
+          }
+      }
+    }
+    for(let i = 0; i < n2.length; i++){
+      let axis = n2[i];
+      let proj1 = this.calculateProjection(p1, axis);
+      let proj2 = this.calculateProjection(p2, axis);
+      if(this.isOverlap(proj1,proj2)){
+          return false;
+      }else{
+        let tmp = this.getOverlap(proj1,proj2);
+        if(tmp < overlap){
+          overlap = tmp;
+          mtv = axis;
+        }
+      }
+    }
+    mtv.scale(overlap);
+    return mtv;
   }
 }

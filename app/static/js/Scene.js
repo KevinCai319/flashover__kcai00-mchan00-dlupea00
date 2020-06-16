@@ -1,5 +1,4 @@
 import GameObject from "./GameObject.js";
-import Request from "./Request.js"
 import Status from "./Status.js"
 import Input from "./Input.js"
 export default class Scene {

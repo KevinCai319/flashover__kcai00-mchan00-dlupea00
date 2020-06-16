@@ -23,7 +23,10 @@ export default class Gameplay extends Scene {
   specHandle(req, i){
     switch(req.signal){
       case Status.ADDBULLET:
-        this.objects[req.data].availableBullets++;
+        //this if statement is needed to account for shots beyond the grave
+        if(this.objects[req.data]){
+          this.objects[req.data].availableBullets++;
+        }
         break;
       default:
         break;
