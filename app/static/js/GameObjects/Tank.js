@@ -91,7 +91,9 @@ export default class Tank extends GameObject {
     let mvecs = [];
     super.setPkt(Status.GRAB,"SOLID");
     let i = 0;
-    super.getResp().forEach(element => {
+    if(super.getResp()[0]){
+    let data = super.getResp()[0];
+    data.forEach(element => {
       if(PVector.getDistance(this.pos,element.pos) < 64){
         let mtv = Polygon.isColliding(this.hitbox,element.hitbox);
         if(mtv){
@@ -99,6 +101,7 @@ export default class Tank extends GameObject {
         }
       }
     });
+    }
     if(mvecs.length > 0){;
       this.rot *= -1;
       this.movement.scale(-1);

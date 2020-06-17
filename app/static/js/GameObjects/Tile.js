@@ -16,15 +16,13 @@ export default class Tile extends GameObject {
     this.init();
   }
   init() {
-    if (this.tileID != 0) {
-      this.hitbox.addRelativePoint(16, 16);
-      this.hitbox.addRelativePoint(16, -16);
-      this.hitbox.addRelativePoint(-16, -16);
-      this.hitbox.addRelativePoint(-16, 16);
-    }
     switch (this.tileID) {
       case 1:
         this.hitbox.color = "#000000";
+        this.hitbox.addRelativePoint(16, 16);
+        this.hitbox.addRelativePoint(16, -16);
+        this.hitbox.addRelativePoint(-16, -16);
+        this.hitbox.addRelativePoint(-16, 16);
         this.addType("SOLID");
         break;
       case 2:
