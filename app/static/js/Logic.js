@@ -10,8 +10,12 @@ function main(time) {
     setTimeout(function() {
       requestAnimationFrame(main);
     }, 1000/60);
-
-
 };
+
+document.addEventListener('keydown', function(e) {
+  if (event.key == ' ') {
+    document.getElementById('audio').play();
+  }
+});
 
 requestAnimationFrame(main);
