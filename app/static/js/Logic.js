@@ -13,9 +13,7 @@ function main(time) {
 };
 
 document.addEventListener('keydown', function(e) {
-  if (event.key == ' ') {
-    document.getElementById('audio').play();
-  }
+  document.getElementById('audio').play();
 });
 
 requestAnimationFrame(main);
