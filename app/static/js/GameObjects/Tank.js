@@ -63,7 +63,7 @@ export default class Tank extends GameObject {
   applyGunRot(rot) {
     this.gun.rotateAbsolute(rot);
   }
-  
+
   applyMovement() {
     if (this.movement.x || this.movement.y) {
       // new Audio('/static/Assets/Audio/Movement/Sample_0012.wav').play();
@@ -73,7 +73,7 @@ export default class Tank extends GameObject {
     this.bumper.translate(this.movement);
     this.gun.translate(this.movement);
   }
-  
+
   applyRotation() {
     this.bumper.rotateBody(this.rot);
     this.hitbox.rotateBody(this.rot);
@@ -115,6 +115,7 @@ export default class Tank extends GameObject {
       this.availableBullets = this.capacity;
     }
     if (this.availableBullets > 0) {
+      // new Audio("/static/Assets/Audio/bplant.wav").play();
       new Audio("/static/Assets/Audio/launch.wav").play();
       this.availableBullets--;
       super.setPkt(Status.ADD, new Bullet(this.id,PVector.copy(this.pos), this.gun.rotation));

@@ -1,0 +1,19 @@
+SOLUTION ONE -- No User Interaction Autoplay Prevention Error
+.
+--Logic.js--
+var backgroundMusic = new Audio("/static/Assets/Audio/Theme.wav");
+backgroundMusic.play();
+
+
+SOLUTION TWO -- DOMException: The element has no supported sources.
+
+--Logic.js--
+var audio = document.createElement("AUDIO")
+document.body.appendChild(audio);
+
+audio.src = "/static/Assets/Audio/Theme.wav"
+document.body.addEventListener("mousemove", function () {
+    audio.play()
+})
+
+For some reason any time I try to play the theme it gives back this source error.
