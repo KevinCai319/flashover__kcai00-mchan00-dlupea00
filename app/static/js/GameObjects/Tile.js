@@ -35,6 +35,10 @@ export default class Tile extends GameObject {
         super.setPkt(Status.ADD, new Player(this.pos.x, this.pos.y, 4));
         this.destroy();
         break;
+      case 4:
+        this.addType("NODE");
+        this.destroy();
+        break;
       default:
         break;
     }
