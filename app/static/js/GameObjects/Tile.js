@@ -3,6 +3,7 @@ import Polygon from "../Physics/Polygon.js";
 import PVector from "../Physics/PVector.js";
 import Player from "./Player.js";
 import Enemy from "./Enemy.js";
+import EnemyTurret from "./EnemyTurret.js";
 import Status from "../Status.js";
 export default class Tile extends GameObject {
   tileID = 0;
@@ -38,6 +39,10 @@ export default class Tile extends GameObject {
         this.addType("NODE");
         this.destroy();
         this.tileID = 4;
+        break;
+      case 5:
+        super.setPkt(Status.ADD, new EnemyTurret(this.pos.x, this.pos.y, 4));
+        this.destroy();
         break;
       default:
         break;

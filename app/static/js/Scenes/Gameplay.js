@@ -26,7 +26,8 @@ export default class Gameplay extends Scene {
         30,
         480,
         960,
-        randData
+        // randData
+        presetMaps[0]
       );
     super.push(this.map);
     return 0;
