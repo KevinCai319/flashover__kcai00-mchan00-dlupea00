@@ -21,6 +21,9 @@ Renamed app.py to __init__.py
 matthewC -- 2020-06-09 05:32
 Created SQL database python module
 
+kevinC -- 2020-06-09 06:11
+Added PVector/Polygon class, Bullet class, add bullet hit sounds affects
+
 matthewC -- 2020-06-09 06:15
 Added more helper functions to format database data
 
@@ -35,8 +38,14 @@ Added route for getting map data from database
 matthewC -- 2020-06-11 02:04
 Fixed Input class to allow for querying keypresses and mouse clicks
 
+kevinC -- 2020-06-11 10:10
+Made program to create levels
+
 davidL -- 2020-06-12 17:32
 Fixed FPS problem where FPS dropped often and the gun was shot randomly.
+
+kevinC -- 2020-06-13 20:20
+Added collision detection, bullet bouncing off walls, tank collision response, method of communication between game objects.
 
 davidL -- 2020-06-17 21:55
 Background audio now plays Tanks theme song
