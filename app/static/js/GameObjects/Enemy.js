@@ -1,11 +1,11 @@
-import Tank from "./Tank.js";
+import Helicopter from "./Helicopter.js";
 import Input from "../Input.js";
 import Polygon from "../Physics/Polygon.js";
 import PVector from "../Physics/PVector.js";
 import Status from "../Status.js";
 
 // The enemy tank(s) the player fights against
-export default class Enemy extends Tank {
+export default class Enemy extends Helicopter {
     constructor(x, y, capacity) {
         super(x, y, capacity);
         super.addType("ENEMY");
@@ -25,7 +25,7 @@ export default class Enemy extends Tank {
         super.setPkt(Status.GRAB, "PLAYER");
         super.setPkt(Status.GRAB, "WALL");
         super.setPkt(Status.GRAB, "MAP");
-        
+
         if (response[0]) {
             var player = response[0][0];
             var walls = response[1];
@@ -98,10 +98,10 @@ export default class Enemy extends Tank {
                     }
                     nodeMap.push(start);
                     nodeMap.push(end);
-                
+
                     // A* pathing
                     this.path = this.calculatePath(nodeMap, start, end);
-                } 
+                }
                 // console.log(this.path);
                 var currNode = this.path[0];
                 // console.log(currNode);
