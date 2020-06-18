@@ -26,7 +26,7 @@ export default class Enemy extends Helicopter {
         super.setPkt(Status.GRAB, "WALL");
         super.setPkt(Status.GRAB, "MAP");
 
-        if (response[0]) {
+        if (response[0]  && response[0][0]) {
             var player = response[0][0];
             var walls = response[1];
             var nodeMap = response[2][0].nodeMap;
@@ -47,7 +47,7 @@ export default class Enemy extends Helicopter {
                 if (Polygon.isColliding(gunLOS, wall.hitbox)) {canSee = false;}
             });
             if (canSee) {
-                if (this.increment % 45 == 0) {super.shoot();}
+                if (this.increment % 25 == 0) {super.shoot();}
                 super.editRot(0);
                 super.editMovement(new PVector(0, 0));
             }
