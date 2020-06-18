@@ -47,7 +47,7 @@ export default class Enemy extends Helicopter {
                 if (Polygon.isColliding(gunLOS, wall.hitbox)) {canSee = false;}
             });
             if (canSee) {
-                if (this.increment % 60 == 0) {super.shoot();}
+                if (this.increment % 45 == 0) {super.shoot();}
                 super.editRot(0);
                 super.editMovement(new PVector(0, 0));
             }
