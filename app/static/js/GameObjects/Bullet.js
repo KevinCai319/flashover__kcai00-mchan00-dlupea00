@@ -93,9 +93,10 @@ export default class Bullet extends GameObject {
     }
   }
   collisionCheck(){
-    let testCollision = super.getResp();
+    let testCollision = super.getResp()[0];
     //get some solids to test
     super.setPkt(Status.GRAB,"SOLID");
+    if(testCollision){
     testCollision.forEach(element => {
       //filter for objects nearby
       if(Math.abs(this.pos.x-element.pos.x) < 64){
@@ -121,6 +122,7 @@ export default class Bullet extends GameObject {
         }
       }
     });
+    }
     super.clearResp();
   }
   update() {

@@ -6,10 +6,12 @@ import Status from "../Status.js";
 const TANK_SIZE = 12;
 const WH_RATIO = 1.2;
 const TANK_WIDTH = TANK_SIZE * WH_RATIO;
-export default class Tank extends GameObject {
+export default class Helicopter extends GameObject {
   hitbox = new Polygon();
-  bumper = new Polygon();
+  blades = new Polygon();
+  tailbox = new Polygon();
   gun = new Polygon();
+  shadow = new Polygon();
   movement = new PVector();
   pos = new PVector();
   rot = 0.0;
@@ -31,24 +33,47 @@ export default class Tank extends GameObject {
     //setup hitbox
     this.hitbox = new Polygon(PVector.copy(this.pos));
     this.gun = new Polygon(PVector.copy(this.pos));
-    this.bumper = new Polygon(PVector.copy(this.pos));
+    this.tailbox = new Polygon(PVector.copy(this.pos));
+    this.blades = new Polygon(PVector.copy(this.pos));
+    this.shadow = new Polygon(PVector.copy(this.pos));
+
     this.movement = new PVector(0, 0);
     this.hitbox.color = "#FF9999";
     this.gun.color = "#000000";
-    this.bumper.color = "#FF0000";
+    this.blades.color = "#FF0000";
+    this.tailbox.color = "#00FF00";
+    this.shadow.color = "#333333"
     //this can be made to whatever polygon.
-    this.hitbox.addRelativePoint(TANK_WIDTH, TANK_SIZE);
-    this.hitbox.addRelativePoint(TANK_WIDTH, -TANK_SIZE);
-    this.hitbox.addRelativePoint(-TANK_WIDTH, -TANK_SIZE);
-    this.hitbox.addRelativePoint(-TANK_WIDTH, TANK_SIZE);
-    this.bumper.addRelativePoint(TANK_WIDTH, TANK_SIZE);
-    this.bumper.addRelativePoint(TANK_WIDTH, -TANK_SIZE);
-    this.bumper.addRelativePoint(TANK_WIDTH / 1.618, -TANK_SIZE);
-    this.bumper.addRelativePoint(TANK_WIDTH / 1.618, TANK_SIZE);
+    for(let i = 0; i < 18; i++) {
+
+      this.shadow.addRelativePoint(Math.cos(i * 20 * Math.PI / 180) * 35, Math.sin(i * 20 * Math.PI / 180) * 35);
+
+    }
+    this.hitbox.addRelativePoint(-1 * TANK_WIDTH, 0);
+    this.hitbox.addRelativePoint(-6,10);
+    this.hitbox.addRelativePoint(8,8);
+    this.hitbox.addRelativePoint(24,0);
+    this.hitbox.addRelativePoint(8,-8);
+    this.hitbox.addRelativePoint(-6,-10);
+    this.tailbox.addRelativePoint(26,8);
+    this.tailbox.addRelativePoint(22,8);
+    this.tailbox.addRelativePoint(22,-8);
+    this.tailbox.addRelativePoint(26,-8);
+    this.blades.addRelativePoint(0,0);
+    this.blades.addRelativePoint(19.6,3.1);
+    this.blades.addRelativePoint(19.6,-3.1);
+    this.blades.addRelativePoint(0,0);
+    this.blades.addRelativePoint(-11.8,16.2);
+    this.blades.addRelativePoint(-16.2,11.8);
+    this.blades.addRelativePoint(0,0);
+    this.blades.addRelativePoint(-16.2,-11.8);
+    this.blades.addRelativePoint(-11.8,-16.2);
     this.gun.addRelativePoint(TANK_WIDTH * 2, 2);
     this.gun.addRelativePoint(TANK_WIDTH * 2, -2);
     this.gun.addRelativePoint(-5, -2);
     this.gun.addRelativePoint(-5, 2);
+
+
     return 0;
   }
   setHitboxColor(str){
@@ -68,15 +93,21 @@ export default class Tank extends GameObject {
     if (this.movement.x || this.movement.y) {
       // new Audio('/static/Assets/Audio/Movement/Sample_0012.wav').play();
     }
+    this.shadow.translate(this.movement);
+
     this.pos.translate(this.movement);
     this.hitbox.translate(this.movement);
-    this.bumper.translate(this.movement);
+    this.tailbox.translate(this.movement);
+    this.blades.translate(this.movement);
     this.gun.translate(this.movement);
+
+
   }
 
   applyRotation() {
-    this.bumper.rotateBody(this.rot);
+    this.blades.rotateBody(this.rot + 0.25);
     this.hitbox.rotateBody(this.rot);
+    this.tailbox.rotateBody(this.rot);
   }
 
   update() {
@@ -118,7 +149,6 @@ export default class Tank extends GameObject {
       this.availableBullets = this.capacity;
     }
     if (this.availableBullets > 0) {
-      // new Audio("/static/Assets/Audio/bplant.wav").play();
       new Audio("/static/Assets/Audio/launch.wav").play();
       this.availableBullets--;
       super.setPkt(Status.ADD, new Bullet(this.id,PVector.copy(this.pos), this.gun.rotation));
@@ -129,8 +159,13 @@ export default class Tank extends GameObject {
 
   render(ctx) {
     ctx.lineWidth = 1;
+    this.shadow.render(ctx);
+
     this.hitbox.render(ctx);
-    this.bumper.render(ctx);
+    this.tailbox.render(ctx);
+    this.blades.render(ctx);
+
+
     this.gun.render(ctx);
     ctx.beginPath();
     ctx.arc(this.pos.x, this.pos.y, 5, 0, 2 * Math.PI);

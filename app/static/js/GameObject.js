@@ -17,7 +17,7 @@ export default class GameObject {
       this.obj.push(new Request(signal,data));
     }
     setResp(resp){
-      this.resp = resp;
+      this.resp.push(resp)
     }
     getResp(){
       return this.resp;
