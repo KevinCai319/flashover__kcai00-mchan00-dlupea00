@@ -27,7 +27,7 @@ export default class Tile extends GameObject {
         this.addType("WALL");
         break;
       case 2:
-        super.setPkt(Status.ADD, new Enemy(this.pos.x, this.pos.y, 2));
+        super.setPkt(Status.ADD, new Enemy(this.pos.x, this.pos.y, 4));
         this.destroy();
         break;
       case 3:

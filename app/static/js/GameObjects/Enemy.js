@@ -11,6 +11,7 @@ export default class Enemy extends Tank {
         super.addType("ENEMY");
         this.Input = new Input();
         this.path = null;
+        this.increment = 0;
     }
     init() {
         super.init();
@@ -18,6 +19,8 @@ export default class Enemy extends Tank {
         return 0;
     }
     update() {
+        this.increment++;
+
         var response = super.getResp();
         super.setPkt(Status.GRAB, "PLAYER");
         super.setPkt(Status.GRAB, "WALL");
@@ -45,7 +48,7 @@ export default class Enemy extends Tank {
                 if (Polygon.isColliding(gunLOS, wall.hitbox)) {canSee = false;}
             });
             if (canSee) {
-                super.shoot();
+                if (this.increment % 60 == 0) {super.shoot();}
                 super.editRot(0);
                 super.editMovement(new PVector(0, 0));
             }
@@ -100,12 +103,13 @@ export default class Enemy extends Tank {
                     // A* pathing
                     this.path = this.calculatePath(nodeMap, start, end);
                 } 
-                console.log(this.path);
+                // console.log(this.path);
                 var currNode = this.path[0];
+                // console.log(currNode);
 
                 // Turn to face nodes
                 var nodeVector = PVector.sub(currNode.pos, this.pos);
-                var angleBetween = PVector.getAngle(nodeVector) - (this.hitbox.rotation);
+                var angleBetween = PVector.getAngle(nodeVector) - (this.hitbox.rotation + Math.PI);
                 var MAX_ROTATION = Math.PI / 60;
                 var rotation = 0;
                 if ((angleBetween <= Math.PI) && (angleBetween >= MAX_ROTATION)) {
@@ -125,9 +129,9 @@ export default class Enemy extends Tank {
                 // Movement between nodes
                 var moveVector = new PVector(0, 0);
                 var THRESHOLD = 2;
-                if (angleBetween == 0) {
+                if (angleBetween == -2*Math.PI) {
                     if (PVector.getScalar(nodeVector) > THRESHOLD) {
-                        moveVector.translate(PVector.getUnitVec(this.hitbox.rotation));
+                        moveVector.translate(PVector.getUnitVec(this.hitbox.rotation + Math.PI));
                         moveVector.scale(3);
                         super.editMovement(moveVector);
                     } else {
