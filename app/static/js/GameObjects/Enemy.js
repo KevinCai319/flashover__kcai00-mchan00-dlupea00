@@ -137,6 +137,7 @@ export default class Enemy extends Helicopter {
                         this.path.splice(0, 1);
                     }
                 }
+                // console.log(PVector.getScalar(nodeVector));
             }
         }
         super.clearResp();
