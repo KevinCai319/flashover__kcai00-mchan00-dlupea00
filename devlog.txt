@@ -37,3 +37,8 @@ Fixed Input class to allow for querying keypresses and mouse clicks
 
 davidL -- 2020-06-12 17:32
 Attempted fix at the FPS problem
+
+matthewC -- 2020-06-17 10:23
+Attempted implementation of Enemy A* pathing using a node map
+Created Enemy patterns for shooting, rotation, and movement
+Altered AI for helicopter implementation
