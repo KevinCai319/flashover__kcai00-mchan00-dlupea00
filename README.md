@@ -32,6 +32,10 @@ $ cd <name of cloned directory>
 ```
 
 View the webpage by opening a web browser and visiting: http://127.0.0.1:5000/
+Level Editor: (Instructions on site) https://scratch.mit.edu/projects/137964062/
+Controls:
+Mouse to aim, a/d to rotate, w/s to move forward. Click to shoot.
+
 
 ---
 © Copyright 2020 Team flashover -- Kevin Cai, Matthew Chan & David Lupea
