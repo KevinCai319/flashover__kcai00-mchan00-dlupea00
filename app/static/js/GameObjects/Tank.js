@@ -34,7 +34,7 @@ export default class Tank extends GameObject {
     this.bumper = new Polygon(PVector.copy(this.pos));
     this.movement = new PVector(0, 0);
     this.hitbox.color = "#FF9999";
-    this.gun.color = "#FFFFFF";
+    this.gun.color = "#000000";
     this.bumper.color = "#FF0000";
     //this can be made to whatever polygon.
     this.hitbox.addRelativePoint(TANK_WIDTH, TANK_SIZE);
@@ -63,7 +63,7 @@ export default class Tank extends GameObject {
   applyGunRot(rot) {
     this.gun.rotateAbsolute(rot);
   }
-  
+
   applyMovement() {
     if (this.movement.x || this.movement.y) {
       // new Audio('/static/Assets/Audio/Movement/Sample_0012.wav').play();
@@ -73,7 +73,7 @@ export default class Tank extends GameObject {
     this.bumper.translate(this.movement);
     this.gun.translate(this.movement);
   }
-  
+
   applyRotation() {
     this.bumper.rotateBody(this.rot);
     this.hitbox.rotateBody(this.rot);
