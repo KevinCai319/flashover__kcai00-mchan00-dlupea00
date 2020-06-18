@@ -25,12 +25,12 @@ export default class Enemy extends Tank {
         super.setPkt(Status.GRAB, "PLAYER");
         super.setPkt(Status.GRAB, "WALL");
         super.setPkt(Status.GRAB, "MAP");
-
-        if (response[0]) {
+        let move = new PVector(0,0);
+        let rotation = 0;
+        if (response[2]) {
             var player = response[0][0];
             var walls = response[1];
             var nodeMap = response[2][0].nodeMap;
-            // console.log(nodeMap);
 
             // Gun player tracking
             var gunVector = PVector.normalize(PVector.sub(player.pos, this.pos));
@@ -111,7 +111,6 @@ export default class Enemy extends Tank {
                 var nodeVector = PVector.sub(currNode.pos, this.pos);
                 var angleBetween = PVector.getAngle(nodeVector) - (this.hitbox.rotation + Math.PI);
                 var MAX_ROTATION = Math.PI / 60;
-                var rotation = 0;
                 if ((angleBetween <= Math.PI) && (angleBetween >= MAX_ROTATION)) {
                     rotation = -1 * MAX_ROTATION;
                 } else if ((angleBetween <= Math.PI) && (angleBetween < MAX_ROTATION)) {
@@ -121,13 +120,11 @@ export default class Enemy extends Tank {
                 } else if ((angleBetween > Math.PI) && (angleBetween < MAX_ROTATION)) {
                     rotation = angleBetween;
                 }
-                super.editRot(rotation);
                 // console.log(currNode);
                 // console.log(nodeVector);
-                console.log(angleBetween);
+                // console.log(angleBetween);
 
                 // Movement between nodes
-                var moveVector = new PVector(0, 0);
                 var THRESHOLD = 2;
                 if (angleBetween == -2*Math.PI) {
                     if (PVector.getScalar(nodeVector) > THRESHOLD) {
@@ -140,6 +137,8 @@ export default class Enemy extends Tank {
                 }
             }
         }
+        super.editMovement(move);
+        super.editRot(rotation);
         super.clearResp();
         return super.update();
     }
