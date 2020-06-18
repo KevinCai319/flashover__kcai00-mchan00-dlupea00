@@ -47,3 +47,6 @@ matthewC -- 2020-06-17 22:23
 Attempted implementation of Enemy A* pathing using a node map
 Created Enemy patterns for shooting, rotation, and movement
 Altered AI for helicopter implementation
+
+matthewC -- 2020-06-18 02:07
+Added turrets and turret spawning
