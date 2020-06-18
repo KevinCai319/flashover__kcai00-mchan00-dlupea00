@@ -18,7 +18,7 @@ export default class Tile extends GameObject {
   init() {
     switch (this.tileID) {
       case 1:
-        this.hitbox.color = "#000000";
+        this.hitbox.color = "#0B5D1E";
         this.hitbox.addRelativePoint(16, 16);
         this.hitbox.addRelativePoint(16, -16);
         this.hitbox.addRelativePoint(-16, -16);
