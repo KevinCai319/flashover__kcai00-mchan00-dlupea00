@@ -2,7 +2,7 @@ import GameObject from "../GameObject.js";
 import Polygon from "../Physics/Polygon.js";
 import PVector from "../Physics/PVector.js";
 import Player from "./Player.js";
-import Tank from "./Tank.js";
+import Enemy from "./Enemy.js";
 import Status from "../Status.js";
 export default class Tile extends GameObject {
   tileID = 0;
@@ -24,9 +24,10 @@ export default class Tile extends GameObject {
         this.hitbox.addRelativePoint(-16, -16);
         this.hitbox.addRelativePoint(-16, 16);
         this.addType("SOLID");
+        this.addType("WALL");
         break;
       case 2:
-        super.setPkt(Status.ADD, new Tank(this.pos.x, this.pos.y, 2));
+        super.setPkt(Status.ADD, new Enemy(this.pos.x, this.pos.y, 2));
         this.destroy();
         break;
       case 3:
@@ -36,6 +37,7 @@ export default class Tile extends GameObject {
       case 4:
         this.addType("NODE");
         this.destroy();
+        this.tileID = 4;
         break;
       default:
         break;
